@@ -1,0 +1,74 @@
+---
+title: "Formative Assessment 3 - PERCIA"
+output: html_document
+date: "2024-02-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Number 1 
+
+<b> A binary communication channel carries data as one of the two sets of signals denoted by 0 and 1. Owing to noise, a transmitted 0 is sometimes received as a 1, and a transmitted 1 is sometimes received as a 0. For a given channel, it can be assumes that a transmitted 0 is correctly received with probability 0.95, and a transmitted 1 is correctly received with probability 0.75. Also, 70% of all messages are transmitted as a 0. If a signal is sent, determine the probability that:
+
+(a) a 1 was received:
+(b) a 1 was transmitted given than a 1 was received. </b>
+
+
+```{r}
+# Problem 1
+
+# Probability of receiving a 1 when a 0 is transmitted
+p_1_0 <- 1 - 0.95
+
+# Probability of receiving a 0 when a 1 is transmitted
+p_0_1 <- 1 - 0.75
+
+#Probability of transmitting a 0
+p_0 <- 0.70
+
+#Probability of transmitting a 1
+p_1 <- 1 - p_0
+
+# (a)
+p_1_received <- p_1_0 * p_0 + (1 - p_0_1) * (p_1)
+
+cat("(a) Probability that a 1 was received : ", p_1_received, "\n")
+
+# (b)
+p_1_1 = (1 - p_0_1) * (p_1) / p_1_received
+
+cat("(b) Probability that a 1 was transmitted given that 1 was received : ", p_1_1, "\n\n")
+```
+
+### Interpretation
+* Probability of Receiving a 1 : The calculated probability gives insight into the likelihood of receiving a 1 signal, considering the transmission probabilities and the possibility of errors in reception
+* Probability of Transmitted 1 Given 1 Received : This probability tells us the likelihood that a 1 was received. It helps in understanding the reliability of the transmission channel when a 1 signal is observed.
+
+
+## Number 2
+
+<b> There are three employees working at an IT company: Jane, Amy, and Ava, doing 10%, 30%, and 60% of the programming, respectively. 8% of Jane's work, 5% of Amy's work, and just 1% of Ava's work is in error. What is the overall percentage of error? If a program is found with an error, who is the most likely person to have written it? </b>
+
+
+```{r}
+#Problem 2
+
+prog_dist <- c(0.10, 0.30, 0.60)
+error_dist <- c(0.08, 0.05, 0.01)
+
+# (a) Overall percentage error
+overall_error <- sum(prog_dist * error_dist)
+
+cat("(a) Overall percentage of error : ", overall_error * 100, "\n")
+
+# (b) Most likely person to have written a program with an error 
+most_likely <- which.max(prog_dist * error_dist)
+
+cat("(b) Most likely person to have written a program with an error is : ", c("Jane","Amy","Ava")[most_likely], "\n")
+```
+
+### Interpretation
+* Overall Percentage of Error : This value represents the average error rate across all employees based on their respective programming distribution and error rates. It indicates the general quality of programming work done in the company.
+* Most Likely Person to Have Written an Error : By identifying the employee with the highest product of their programming and error rate, we determine who is statistically most likely to have authored a program containing an error. This insight can be valuable for quality control measures or identifying areas for improvement in training or supervision.
